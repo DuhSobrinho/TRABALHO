@@ -1,38 +1,44 @@
 
+import java.io.IOException;
+
+
 public class Menu {
 
     public static void main(String[] args) {
-        int opcao = -1;
-        do {
-            try {
-                opcao = mostraMenu();
-                executar(opcao);
-            } catch (Exception ex) {
-                Dialogo.mostraErro("Error", ex.getMessage());
-            }
-
-        } while (opcao != 0);
+        executaMenu();
     }
 
     static int mostraMenu() {
         int opcao = Dialogo.lerInteiro("Menu de Opcões", "1 ​ ​-​ ​Cadastrar​ ​Animal"
                 + "\n2 -​ ​Listar​ ​Animais"
                 + "\n3 -​ ​Lançar​ ​Serviço"
-                + "\n4 ​ ​-​ ​Exibir​ ​Detalhes"
-                + "\n5 ​-​ ​Liberar​ ​Animal\n"
+                + "\n4 -​ ​Exibir​ ​Detalhes"
+                + "\n5 -​ ​Liberar​ ​Animal\n"
                 + "\n0 -​ ​Sair");
-        
+
         return opcao;
-        
-     
+
+    }
+    
+    static void executaMenu(){
+        int opcao = -1;
+        do {
+            try {
+                opcao = mostraMenu();
+                validaOpcao(opcao);
+            } catch (IOException ex) {
+                Dialogo.mostraErro("Error", ex.getMessage());
+            }
+
+        } while (opcao != 0);
     }
 
-    static int executar(int opcao) {
-        
+    static int validaOpcao(int opcao) throws IOException {
+
         do {
             switch (opcao) {
                 case 1:
-                    CadastroAnimal.class;
+                    CadastroAnimal.executarCadastroAnimal();
                     break;
 
                 case 2:
