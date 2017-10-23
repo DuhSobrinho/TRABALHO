@@ -1,7 +1,6 @@
 
 import java.io.IOException;
 
-
 public class Menu {
 
     public static void main(String[] args) {
@@ -42,19 +41,19 @@ public class Menu {
                     break;
 
                 case 2:
-                    ListaAnimal.class;
+//                    ListaAnimal.class;
                     break;
 
                 case 3:
-                    LancaServiço.class;
+//                    LancaServiço.class;
                     break;
 
                 case 4:
-                    Detalhes.class;
+//                    Detalhes.class;
                     break;
 
                 case 5:
-                    LiberaAnimal.class;
+//                    LiberaAnimal.class;
                     break;
                 case 0:
                     Dialogo.mostraAviso("Tchau!", "Até mais!");
