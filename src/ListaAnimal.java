@@ -16,12 +16,12 @@ public class ListaAnimal {
         Dialogo.mostraMensagem("Animais cadastrados", aux);
     }
     static String executaListaAnimal()  throws FileNotFoundException, IOException {
-       File folder = new File("./Trabalho/" + "Animais/");
+       File folder = new File("./" + "Animais/");
        File[] listOfFolders = folder.listFiles();
        String gambiarra = "";
        
        for (int i = 0; i < listOfFolders.length; i++) {
-           File auxFolder = new File("./Trabalho/Animais/"+listOfFolders[i].getName());
+           File auxFolder = new File("./Animais/"+listOfFolders[i].getName());
            File[] auxFile = auxFolder.listFiles();
            FileInputStream fis = new FileInputStream(auxFile[0]);
            InputStreamReader isr = new InputStreamReader(fis);
