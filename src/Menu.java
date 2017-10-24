@@ -25,27 +25,27 @@ public class Menu {
             try {
                 opcao = mostraMenu();
                 validaOpcao(opcao);
-            } catch (IOException ex) {
+            } catch (Exception ex) {
                 Dialogo.mostraErro("Error", ex.getMessage());
             }
 
         } while (opcao != 0);
     }
 
-    static int validaOpcao(int opcao) throws IOException {
+    static int validaOpcao(int opcao) throws Exception {
 
         do {
             switch (opcao) {
                 case 1:
-                    CadastroAnimal.executarCadastroAnimal();
+                    CadastroAnimal.excutaCadastroAnimal();
                     break;
 
                 case 2:
-//                    ListaAnimal.class;
+                    ListaAnimal.executaListaAnimal();
                     break;
 
                 case 3:
-//                    LancaServiço.class;
+                    LancaServico.executaLancaServico();
                     break;
 
                 case 4:

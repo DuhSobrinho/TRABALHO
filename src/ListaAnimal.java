@@ -16,7 +16,6 @@ public class ListaAnimal {
         Dialogo.mostraMensagem("Animais cadastrados", aux);
     }
     static String executaListaAnimal()  throws FileNotFoundException, IOException {
-       File arquivo = new File("teste.txt");
        File folder = new File("./Trabalho/" + "Animais/");
        File[] listOfFolders = folder.listFiles();
        String gambiarra = "";
