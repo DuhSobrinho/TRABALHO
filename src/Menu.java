@@ -45,7 +45,7 @@ public class Menu {
                     break;
 
                 case 3:
-                    LancaServiço.executaLancaServico;
+                    LancaServico.executaLancaServico();
                     break;
 
                 case 4:

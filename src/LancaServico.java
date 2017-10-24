@@ -6,7 +6,7 @@ public class LancaServico {
         int opcao = 0;
         do {
             try {
-                
+                mostraOpcao(opcao);
 
             } catch (Exception ex) {
                 Dialogo.mostraErro("Error", ex.getMessage());
@@ -17,6 +17,23 @@ public class LancaServico {
 
     static String pedeNome() {
         String nomePet = Dialogo.lerTextoObrigatorio("Lança Serviço", "Informe o nome do pet: ");
+        
+        do {
+            try {
+                String petList = ListaAnimal.executaListaAnimal();
+                boolean found = petList.contains(nomePet);
+                
+                if (found != true){
+                    Dialogo.mostraAviso("Aviso", "Nome do pet é inválido!");
+                    break;
+                }else{
+                    return nomePet;
+                }
+            } catch (Exception ex) {
+                Dialogo.mostraErro("Error", ex.getMessage());
+            }
+            
+        } while (nomePet.isEmpty());
         return nomePet;
     }
 
@@ -25,35 +42,35 @@ public class LancaServico {
         return serviço;
     }
 
-    static int pedeValor(int quantidadeServicos) {
+    static int pedeValor() {
         String valorServico = Dialogo.lerTextoObrigatorio("Lança Serviço", "Informe o valor do serviço: ");
-        quantidadeServicos++;
         return Integer.parseInt(valorServico);
     }
 
-    static void executa(int quantidadeServiços) {
+    static void executa() {
         pedeServico();
-        pedeValor(quantidadeServiços);
+        pedeValor();
     }
-    static int mostraOpcao(int opcao, int quantidadeServiços){
-        opcao = Dialogo.lerInteiro("Ordem Serviço", 
-                "1 - Adicionar serviço" 
+
+    static int mostraOpcao(int opcao) {
+        opcao = Dialogo.lerInteiro("Ordem Serviço",
+                "1 - Adicionar serviço\n"
                 + "2 - Fechar ordem de serviços");
-        
+
         switch (opcao) {
-                    case 0:
-                        pedeNome();
-                        executa(quantidadeServiços);
-                        break;
-                    case 1:
-                        executa(quantidadeServiços); //inserir novo serviço
-                        break;
-                    case 2:
-                          
-                        break;
-                    default:
-                        throw new AssertionError();
-                }
+            case 0:
+                pedeNome();
+                executa();
+                break;
+            case 1:
+                executa(); //inserir novo serviço
+                break;
+            case 2:
+                Menu.executaMenu();
+                break;
+            default:
+                throw new AssertionError();
+        }
         return opcao;
     }
 }

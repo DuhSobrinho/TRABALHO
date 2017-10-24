@@ -73,14 +73,14 @@ public class CadastroAnimal {
         int a = -1;
         do {
             try {
-                String NomeAnimal = Dialogo.lerTextoObrigatorio("Cadastro Animal", "Nome do animal:");
-                fanimal = new File(folder, NomeAnimal);
-                if (NomeAnimal.isEmpty()){
+                String nomePet = Dialogo.lerTextoObrigatorio("Cadastro Animal", "Nome do animal:");
+                fanimal = new File(folder, nomePet);
+                if (nomePet.isEmpty()){
                     return null;
                 }
                 if (!fanimal.exists()) {
 
-                    if (NomeAnimal.length() > 0) {
+                    if (nomePet.length() > 0) {
 
                         validaPasta = fanimal.mkdir();
 
