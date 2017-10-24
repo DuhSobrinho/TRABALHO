@@ -38,7 +38,7 @@ public class LancaServico {
     static int mostraOpcao(int opcao, int quantidadeServiços){
         opcao = Dialogo.lerInteiro("Ordem Serviço", 
                 "1 - Adicionar serviço" 
-                + "2 - Ferchar ordem de serviços");
+                + "2 - Fechar ordem de serviços");
         
         switch (opcao) {
                     case 0:
@@ -49,7 +49,8 @@ public class LancaServico {
                         executa(quantidadeServiços); //inserir novo serviço
                         break;
                     case 2:
-                        //
+                          
+                        break;
                     default:
                         throw new AssertionError();
                 }

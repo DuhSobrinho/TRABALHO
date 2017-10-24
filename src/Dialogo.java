@@ -1,6 +1,5 @@
 
 import java.io.File;
-import javax.naming.spi.DirectoryManager;
 import javax.swing.JOptionPane;
 
 public class Dialogo {
@@ -24,7 +23,7 @@ public class Dialogo {
     static String lerTextoObrigatorio(String titulo, String texto) {
         String entrada = lerTexto(titulo, texto);
 
-        if (entrada.isEmpty()) {
+        if (entrada == null || entrada.isEmpty()) { 
             throw new RuntimeException("Valor obrigatório");
         }
 
