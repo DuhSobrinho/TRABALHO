@@ -32,15 +32,14 @@ public class Menu {
             }
 
         } while (opcao != 0);
-        System.exit(0);
+        //System.exit(0);
     }
 
     static int validaOpcao(int opcao) throws Exception {
 
-        do {
             switch (opcao) {
                 case 1:
-                    CadastroAnimal.excutaCadastroAnimal();
+                    CadastroAnimal.executaCadastroAnimal();
                     break;
 
                 case 2:
@@ -66,7 +65,6 @@ public class Menu {
                     break;
 
             }
-        } while (opcao != 0);
         return opcao;
     }
 }
