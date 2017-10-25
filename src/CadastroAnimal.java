@@ -1,5 +1,4 @@
 
-import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,20 +10,20 @@ import java.io.PrintWriter;
 public class CadastroAnimal {
 
     public static void main(String[] args) throws IOException {
-        nemSeiMais();
+        excutaCadastroAnimal();
 
     }
 
     static File GerarLocalPasta() {
 
         File folder = null;
-        boolean bool = false;
-        File PastaOrigem = new File("C:\\Users\\Rodolfo\\Documents\\GitKraken\\Facul\\TRABALHO");
+        boolean validaPasta = false;
+        File PastaOrigem = new File("Trabalho");
         try {
 
             folder = new File(PastaOrigem, "Animais");
-            bool = folder.mkdir();
-            System.out.println("Pasta Criada? " + bool);
+            validaPasta = folder.mkdir();
+            System.out.println("Pasta Criada? " + validaPasta);
 
         } catch (Exception ex) {
             Dialogo.mostraErro("Error", ex.getMessage());
@@ -34,62 +33,70 @@ public class CadastroAnimal {
         return folder;
     }
 
-    static void nemSeiMais() {
+    static void excutaCadastroAnimal() throws IOException, NullPointerException {
         boolean confirmacao = false;
         do {
             try {
-                executarCadastroAnimal();
-            } catch (Exception ex) {
+                cadastroAnimal();
+            } catch (NullPointerException ex) {
                 confirmacao = Dialogo.obterConfirmacao("Aviso", "Você deseja realmente cancelar?");
                 if (confirmacao == true) {
                     Menu.executaMenu();
                 } else {
                     try {
-                        executarCadastroAnimal();
+                        cadastroAnimal();
 
+                    } catch (NullPointerException e) {
+                        Dialogo.mostraErro("ErrorNp", e.getMessage());
+                        Menu.executaMenu();
                     } catch (IOException e) {
-                        Dialogo.mostraErro("Error", e.getMessage());
-
+                        Dialogo.mostraErro("ErrprIO", e.getMessage());
+                        Menu.executaMenu();
+                    } finally {
+                        Menu.executaMenu();
                     }
                 }
             }
         } while (confirmacao != true);
     }
 
-    static void executarCadastroAnimal() throws IOException {
+    static void cadastroAnimal() throws IOException {
         File folder = GerarLocalPasta();
         File fanimal = GerarPastaAnimal(folder);
         GerarTexto(fanimal);
     }
 
     static File GerarPastaAnimal(File folder) {
-        boolean bool = false;
+        boolean validaPasta = false;
         File fanimal = null;
 
         int a = -1;
         do {
             try {
-                String NomeAnimal = JOptionPane.showInputDialog("Nome do Animal");
-                fanimal = new File(folder, NomeAnimal);
-
+                String nomePet = Dialogo.lerTextoObrigatorio("Cadastro Animal", "Nome do animal:");
+                fanimal = new File(folder, nomePet);
+                if (nomePet.isEmpty()){
+                    return null;
+                }
                 if (!fanimal.exists()) {
 
-                    if (NomeAnimal.length() > 0) {
+                    if (nomePet.length() > 0) {
 
-                        bool = fanimal.mkdir();
+                        validaPasta = fanimal.mkdir();
 
                         a++;
                     } else {
                         JOptionPane.showMessageDialog(null, "Por Favor colocar o nome do Animal!");
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Pasta existente");
+                    JOptionPane.showMessageDialog(null, "Pasta já existe");
                     a++;
                 }
 
-                System.out.println("Pasta Criada? " + bool);
+                System.out.println("Pasta Criada? " + validaPasta);
 
-            } catch (HeadlessException ex) {
+            } catch (NullPointerException ex) {
+                ex.printStackTrace();
                 Dialogo.mostraErro("Error", ex.getMessage());
 
             }

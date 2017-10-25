@@ -1,7 +1,6 @@
 
 import java.io.IOException;
 
-
 public class Menu {
 
     public static void main(String[] args) {
@@ -9,7 +8,9 @@ public class Menu {
     }
 
     static int mostraMenu() {
-        int opcao = Dialogo.lerInteiro("Menu de Opcões", "1 ​ ​-​ ​Cadastrar​ ​Animal"
+        int opcao = Dialogo.lerInteiro(
+                "Menu de Opcões",
+                "1 ​ ​-​ ​Cadastrar​ ​Animal"
                 + "\n2 -​ ​Listar​ ​Animais"
                 + "\n3 -​ ​Lançar​ ​Serviço"
                 + "\n4 -​ ​Exibir​ ​Detalhes"
@@ -19,42 +20,43 @@ public class Menu {
         return opcao;
 
     }
-    
-    static void executaMenu(){
+
+    static void executaMenu() {
         int opcao = -1;
         do {
             try {
                 opcao = mostraMenu();
                 validaOpcao(opcao);
-            } catch (IOException ex) {
+            } catch (Exception ex) {
                 Dialogo.mostraErro("Error", ex.getMessage());
             }
 
         } while (opcao != 0);
+        System.exit(0);
     }
 
-    static int validaOpcao(int opcao) throws IOException {
+    static int validaOpcao(int opcao) throws Exception {
 
         do {
             switch (opcao) {
                 case 1:
-                    CadastroAnimal.executarCadastroAnimal();
+                    CadastroAnimal.excutaCadastroAnimal();
                     break;
 
                 case 2:
-                    ListaAnimal.class;
+                    ListaAnimal.executaListaAnimal();
                     break;
 
                 case 3:
-                    LancaServiço.class;
+                    LancaServico.executaLancaServico();
                     break;
 
                 case 4:
-                    Detalhes.class;
+//                    Detalhes.class;
                     break;
 
                 case 5:
-                    LiberaAnimal.class;
+//                    LiberaAnimal.class;
                     break;
                 case 0:
                     Dialogo.mostraAviso("Tchau!", "Até mais!");
