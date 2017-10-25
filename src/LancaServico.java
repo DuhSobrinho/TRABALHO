@@ -1,78 +1,84 @@
 
-import java.awt.HeadlessException;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 
 public class LancaServico {
 
     public static void main(String[] args) {
+        executaLancaServico();
+    }
+
+    static void executaLancaServico() {
         int quantidadeServicos = 0;
         int opcao = 0;
         do {
             try {
-                mostraOpcao(opcao);
 
                 String nomepet = pedeNome();
-                GeraArquivoServico(nomepet);
-                executa(quantidadeServicos);
-                 {
-                    
+                File servicoCriado = GeraArquivoServico(nomepet);
+
+                if (servicoCriado.exists()) {
+                    mostraOpcao(opcao);
+                } else {
+                    break;
                 }
             } catch (Exception ex) {
                 Dialogo.mostraErro("Error", ex.getMessage());
+                opcao += -1;
             }
 
-        } while (quantidadeServicos == 0);
+        } while (opcao == 0);
+        System.exit(0);
+
     }
 
     static String pedeNome() {
-        String nomePet = Dialogo.lerTextoObrigatorio("Lança Serviço", "Informe o nome do pet: ");
-        
+        String nomePet;
         do {
+            nomePet = null;
             try {
-                String petList = ListaAnimal.executaListaAnimal();
-                boolean found = petList.contains(nomePet);
-                
-                if (found != true){
-                    Dialogo.mostraAviso("Aviso", "Nome do pet é inválido!");
-                    break;
-                }else{
-                    return nomePet;
-                }
+                nomePet = Dialogo.lerTextoObrigatorio("Lança Serviço", "Informe o nome do pet: ");
+
             } catch (Exception ex) {
                 Dialogo.mostraErro("Error", ex.getMessage());
+                Menu.executaMenu();
             }
-            
-        } while (nomePet.isEmpty());
+
+        } while (nomePet.length() != 0);
+
         return nomePet;
     }
 
     static File GeraArquivoServico(String nomepet) throws Exception {
-        
+
         File arqValida = new File("Animais", nomepet);
-        File arqServico = new File("Animais//"+ nomepet, "servico.txt");
-        if(arqValida.exists()){
-            arqServico.createNewFile();            
+        File arqServico = new File("Animais//" + nomepet, "servico.txt");
+        if (arqValida.exists()) {
+            arqServico.createNewFile();
             FileOutputStream fos = new FileOutputStream(arqServico);
             OutputStreamWriter osw = new OutputStreamWriter(fos);
             PrintWriter pw = new PrintWriter(osw);
-            
-            
+
             //So falta alterar os testes p/ os servicos lancados!!!
-            
-            
             pw.println("teste");
             pw.println("teste");
             pw.println("teste");
             pw.println("teste");
             pw.println("teste");
             pw.close();
-            
-        }else{
+
+        } else {
             Dialogo.mostraErro("Pasta Não Encontrada", "pasta: " + nomepet + "Não foi cadastrada,\nPor favor realizar cadastro!");
+            return null;
         }
+
         return arqServico;
 
     }
@@ -98,12 +104,8 @@ public class LancaServico {
                 + "2 - Fechar ordem de serviços");
 
         switch (opcao) {
-            case 0:
-                pedeNome();
-                executa();
-                break;
             case 1:
-                executa(); //inserir novo serviço
+                executa();
                 break;
             case 2:
                 Menu.executaMenu();
@@ -112,5 +114,42 @@ public class LancaServico {
                 throw new AssertionError();
         }
         return opcao;
+    }
+
+    static String executaListaAnimal() throws FileNotFoundException, IOException {
+        File folder = new File("./" + "Animais/");
+        File[] listOfFolders = folder.listFiles();
+        String gambiarra = "";
+
+        for (int i = 0; i < listOfFolders.length; i++) {
+            File auxFolder = new File("./Animais/" + listOfFolders[i].getName());
+            File[] auxFile = auxFolder.listFiles();
+            FileInputStream fis = new FileInputStream(auxFile[0]);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader br = new BufferedReader(isr);
+
+            String linha;
+            int counter = 0;
+            String aux = "";
+            while ((linha = br.readLine()) != null) {
+
+                switch (counter) {
+                    case 0:
+                        aux += (linha + ": ");
+                        break;
+                    case 1:
+                        aux += (linha + " - ");
+                        break;
+                    case 3:
+                        aux += linha;
+                        break;
+                }
+                counter++;
+            }
+            System.out.println(aux);
+            gambiarra += aux + "\n";
+            br.close();
+        }
+        return gambiarra;
     }
 }
