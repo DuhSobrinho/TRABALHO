@@ -10,7 +10,7 @@ import java.io.PrintWriter;
 public class CadastroAnimal {
 
     public static void main(String[] args) throws IOException {
-        excutaCadastroAnimal();
+        executaCadastroAnimal();
 
     }
 
@@ -32,50 +32,28 @@ public class CadastroAnimal {
 
         return folder;
     }
-
-    static void excutaCadastroAnimal() throws IOException, NullPointerException {
-        boolean confirmacao = false;
-        do {
-            try {
-                cadastroAnimal();
-            } catch (NullPointerException ex) {
-                confirmacao = Dialogo.obterConfirmacao("Aviso", "Você deseja realmente cancelar?");
-                if (confirmacao == true) {
-                    Menu.executaMenu();
-                } else {
-                    try {
-                        cadastroAnimal();
-
-                    } catch (NullPointerException e) {
-                        Dialogo.mostraErro("ErrorNp", e.getMessage());
-                        Menu.executaMenu();
-                    } catch (IOException e) {
-                        Dialogo.mostraErro("ErrprIO", e.getMessage());
-                        Menu.executaMenu();
-                    } finally {
-                        Menu.executaMenu();
-                    }
-                }
+    
+    static void executaCadastroAnimal() throws IOException {
+        try {
+            File folder = GerarLocalPasta();
+            File fanimal = GerarPastaAnimal(folder);
+            GerarTexto(fanimal);
+        } catch (Exception ex) {
+            boolean confirmacao = Dialogo.obterConfirmacao("Aviso", "Você deseja realmente cancelar?");
+            if (!confirmacao) {
+                executaCadastroAnimal();
             }
-        } while (confirmacao != true);
+        }
     }
-
-    static void cadastroAnimal() throws IOException {
-        File folder = GerarLocalPasta();
-        File fanimal = GerarPastaAnimal(folder);
-        GerarTexto(fanimal);
-    }
-
     static File GerarPastaAnimal(File folder) {
         boolean validaPasta = false;
         File fanimal = null;
 
         int a = -1;
         do {
-            try {
                 String nomePet = Dialogo.lerTextoObrigatorio("Cadastro Animal", "Nome do animal:");
                 fanimal = new File(folder, nomePet);
-                if (nomePet.isEmpty()){
+                if (nomePet.isEmpty()) {
                     return null;
                 }
                 if (!fanimal.exists()) {
@@ -94,12 +72,7 @@ public class CadastroAnimal {
                 }
 
                 System.out.println("Pasta Criada? " + validaPasta);
-
-            } catch (NullPointerException ex) {
-                ex.printStackTrace();
-                Dialogo.mostraErro("Error", ex.getMessage());
-
-            }
+               
         } while (a == -1);
         return fanimal;
 
