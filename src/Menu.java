@@ -46,7 +46,7 @@ public class Menu {
                     break;
 
                 case 3:
-                    LancaServiço.class;
+                    LancaServico.class;
                     break;
 
                 case 4:
