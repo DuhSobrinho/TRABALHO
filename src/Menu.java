@@ -37,34 +37,33 @@ public class Menu {
 
     static int validaOpcao(int opcao) throws Exception {
 
-            switch (opcao) {
-                case 1:
-                    CadastroAnimal.executaCadastroAnimal();
-                    break;
+        switch (opcao) {
+            case 1:
+                CadastroAnimal.executaCadastroAnimal();
+                break;
 
-                case 2:
-                    ListaAnimal.executaListaAnimal();
-                    break;
+            case 2:
+                ListaAnimal.executaListaAnimal();
+                break;
 
-                case 3:
-                    LancaServico.executaLancaServico();
-                    break;
-
-                case 4:
+            case 3:
+                LancaServico.executaLancaServico();
+                break;
+            case 4:
 //                    Detalhes.class;
-                    break;
+                break;
 
-                case 5:
-//                    LiberaAnimal.class;
-                    break;
-                case 0:
-                    Dialogo.mostraAviso("Tchau!", "Até mais!");
-                    break;
-                default:
-                    Dialogo.mostraErro("Erro de execução", "Opção invalida");
-                    break;
+            case 5:
+                      LiberaAnimal.executaLiberarAnimal();
+                break;
+            case 0:
+                Dialogo.mostraAviso("Tchau!", "Até mais!");
+                break;
+            default:
+                Dialogo.mostraErro("Erro de execução", "Opção invalida");
+                break;
 
-            }
+        }
         return opcao;
     }
 }
