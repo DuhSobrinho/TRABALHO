@@ -1,0 +1,4 @@
+3
+Paula,120
+Sandra,150
+Banhao,120
