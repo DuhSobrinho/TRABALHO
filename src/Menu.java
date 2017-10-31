@@ -50,7 +50,7 @@ public class Menu {
                 LancaServico.executaLancaServico();
                 break;
             case 4:
-//                    Detalhes.class;
+                    Detalhes.iniciaDetalhes();
                 break;
 
             case 5:

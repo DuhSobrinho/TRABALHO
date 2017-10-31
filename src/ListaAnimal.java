@@ -10,12 +10,9 @@ import javax.swing.JOptionPane;
 
 public class ListaAnimal {
     public static void main(String[] args) throws IOException{
-        String aux;
-        aux = executaListaAnimal();
-//        System.out.println(aux);
-        Dialogo.mostraMensagem("Animais cadastrados", aux);
+       executaListaAnimal();     
     }
-    static String executaListaAnimal()  throws FileNotFoundException, IOException {
+    static void executaListaAnimal()  throws FileNotFoundException, IOException {
        File folder = new File("./" + "Animais/");
        File[] listOfFolders = folder.listFiles();
        String gambiarra = "";
@@ -49,6 +46,6 @@ public class ListaAnimal {
            gambiarra += aux + "\n";
            br.close();
        }
-      return gambiarra; 
+      Dialogo.mostraMensagem("Animais cadastrados", gambiarra);
     }
     }

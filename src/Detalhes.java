@@ -6,11 +6,14 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public class Detalhes {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception{
+       iniciaDetalhes();
+    }
+    static void iniciaDetalhes()throws Exception {
        String nomepet = detalhesServico();
        File arquivoServico = encontraArquivoServico(nomepet);
        File arquivoDados = encontraArquivoDados(nomepet);
-       geraInvoice(arquivoServico, arquivoDados);
+       Dialogo.mostraMensagem("Detalhes de Serviço", geraInvoice(arquivoServico, arquivoDados));
     }
     
     static String detalhesServico() {
